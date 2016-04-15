@@ -15,9 +15,6 @@
         "php": ">=5.4.0"
     },
     "autoload": {
-        "psr-4": {
-            "fritak\\": "",
-            "fritak\\messenger-platform\\": "source"
-        }
+        "classmap": ["/"]
     }
 }
