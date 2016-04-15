@@ -7,7 +7,7 @@ INSTALLATION
 ------------
 
 ```
-composer require "fritak/MessengerPlatform"
+composer require "fritak/messenger-platform"
 ```
 
 REQUIREMENTS
