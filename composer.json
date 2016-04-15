@@ -1,0 +1,22 @@
+{
+    "name": "fritak/MessengerPlatform",
+    "description": "Facebook Messenger Platform PHP API for bots.",
+    "homepage": "https://github.com/fritak/messengerPlatform",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marek Sušický",
+            "email": "contact@fritak.eu",
+            "homepage": "http://www.fritak.eu",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "fritak\\": ""
+        }
+    }
+}
