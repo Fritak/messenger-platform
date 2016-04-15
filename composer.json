@@ -16,7 +16,8 @@
     },
     "autoload": {
         "psr-4": {
-            "fritak\\": ""
+            "fritak\\": "",
+            "fritak\\messenger-platform\\": "source"
         }
     }
 }
