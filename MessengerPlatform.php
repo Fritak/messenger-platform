@@ -51,7 +51,7 @@ class MessengerPlatform
      */
     public function subscribe()
     {
-        return $this->gate->request(Gate::SUBSCRIBED_APPS);
+        return $this->gate->request(Gate::URL_SUBSCRIBED_APPS);
     }
     
     /**
