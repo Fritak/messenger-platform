@@ -62,6 +62,11 @@ class ParseRequest
     {
         try
         { 
+            if(!isset($this->response->entry['0']->messaging)) 
+            {
+                return FALSE;
+            }
+            
             $messaging = $this->response->entry['0']->messaging;
         }
         catch(MessengerPlatformException $e)
