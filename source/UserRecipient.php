@@ -42,7 +42,7 @@ class UserRecipient
         
         if(!empty($this->phone))
         {
-            $result['phone'] = $this->phone;
+            $result['phone_number'] = $this->phone;
         }
         
         return $result;
