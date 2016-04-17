@@ -3,7 +3,7 @@ use fritak\MessengerPlatform\Button;
 use fritak\MessengerPlatform\Element;
 use fritak\MessengerPlatform\MessageSend;
 use fritak\MessengerPlatform\StructuredMessage;
-
+use fritak\MessengerPlatform\UserRecipient;
 
 use fritak\MessengerPlatform\ReceiptElement;
 use fritak\MessengerPlatform\Receipt;
@@ -15,12 +15,15 @@ require_once(dirname(__FILE__) . '/vendor/autoload.php');
 
 $userToSendMessage = 123; // This must be an id that was retrieved through the Messenger entry points or through the Messenger callbacks.
 
+// Or you can set an object UserRecipient - you can try Customer Matching, if you have pages_messaging_phone_number permission
+$userToSendMessage = new UserRecipient(NULL, 00420123456789);
+
 // This is just an example, this method of getting request is not safe!
 $stream  = file_get_contents("php://input");
 $request = empty($stream)? $_REQUEST : $stream;
 
 $bot = new \fritak\MessengerPlatform(
-        ['accessToken'      => 'CAAWiukRglNoBAJN4D0pUwKZCe3ZBOmwZA6ACwuDs4YkZAOsFyc5lVZBxcU2trTlNVteRy3T2ZANlyZAUn5znRwHKqFv0dmp8KOvs8mdOZCSH0cvH1dOXSR8xl9gZCU2GWwOQzBsnZCBJEhQaaaTvwHEIsUZAdOZCwXoPkrZCQSmzBkPyj5RWjLEQA8ZCZCuEPUpMgrbYcfP4wYyZCPR3XgZDZD',
+        ['accessToken'      => 'your_token',
          'webhookToken'     => 'my_secret_token',
          'facebookApiUrl'   => 'https://graph.facebook.com/v2.6/me/'
         ], $request);

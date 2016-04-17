@@ -17,7 +17,10 @@ The minimum requirement is PHP 5.4 on your Web Server.
 
 ## SETUP
 ```php
-$userToSendMessage = $userToSendMessage; // now just and ID, phone matching will come in the future
+$userToSendMessage = $userToSendMessage; // an id that was retrieved through the Messenger entry points or through the Messenger callbacks.
+
+// Or you can set an object UserRecipient - you can try Customer Matching, if you have pages_messaging_phone_number permission
+$userToSendMessage = new UserRecipient(NULL, 00420123456789);
 
 // This is just an example, this method of getting request is not safe!
 $stream  = file_get_contents("php://input");

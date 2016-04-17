@@ -57,15 +57,19 @@ class MessengerPlatform
     /**
      * Send a simple text message.
      * 
-     * @param int $recipientId This must be an id that was retrieved through the Messenger entry points or through the Messenger callbacks.
+     * @param int $recipient This must be either:
+     * <ul>
+     * <li>an id that was retrieved through the Messenger entry points or through the Messenger callbacks</li>
+     * <li>or instance of fritak\MessengerPlatform\UserRecipient</li>
+     * </ul>
      * @param string $textMessage Text.
      * @param string $notificationType One of 3 types of notification, use constants (eg. NOTIFICATION_TYPE_REGULAR)
      * @return fritak\MessengerPlatform\Response
      * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#guidelines
      */
-    public function sendMessage($recipientId, $textMessage, $notificationType = MessageSend::NOTIFICATION_TYPE_REGULAR)
+    public function sendMessage($recipient, $textMessage, $notificationType = MessageSend::NOTIFICATION_TYPE_REGULAR)
     {
-        $message = new MessageSend($recipientId, $textMessage, $notificationType);
+        $message = new MessageSend($recipient, $textMessage, $notificationType);
         
         return $this->gate->request(Gate::URL_MESSAGES, $message->getDataForCall());
     }
@@ -73,32 +77,40 @@ class MessengerPlatform
     /**
      * Send an image (file).
      * 
-     * @param int $recipientId This must be an id that was retrieved through the Messenger entry points or through the Messenger callbacks.
+     * @param int $recipient This must be either:
+     * <ul>
+     * <li>an id that was retrieved through the Messenger entry points or through the Messenger callbacks</li>
+     * <li>or instance of fritak\MessengerPlatform\UserRecipient</li>
+     * </ul>
      * @param string $url Image URL.
      * @param string $notificationType One of 3 types of notification, use constants (eg. NOTIFICATION_TYPE_REGULAR)
      * @return fritak\MessengerPlatform\Response
      * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#guidelines
      */
-    public function sendImage($recipientId, $url, $notificationType = MessageSend::NOTIFICATION_TYPE_REGULAR)
+    public function sendImage($recipient, $url, $notificationType = MessageSend::NOTIFICATION_TYPE_REGULAR)
     {
-        $structuredMessage = new StructuredMessage($recipientId, ['url' => $url], $notificationType, StructuredMessage::ATTACHMENT_TYPE_IMAGE);
-        
+        $structuredMessage = new StructuredMessage($recipient, ['url' => $url], $notificationType, StructuredMessage::ATTACHMENT_TYPE_IMAGE);
+
         return $this->gate->request(Gate::URL_MESSAGES, $structuredMessage->getDataForCall());
     }
     
     /**
      * Send a structured Message - button template.
      * 
-     * @param int $recipientId This must be an id that was retrieved through the Messenger entry points or through the Messenger callbacks.
+     * @param int $recipient This must be either:
+     * <ul>
+     * <li>an id that was retrieved through the Messenger entry points or through the Messenger callbacks</li>
+     * <li>or instance of fritak\MessengerPlatform\UserRecipient</li>
+     * </ul>
      * @param string $text Text.
      * @param array $buttons Array of fritak\MessengerPlatform\Button.
      * @param string $notificationType One of 3 types of notification, use constants (eg. NOTIFICATION_TYPE_REGULAR)
      * @return fritak\MessengerPlatform\Response
      * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#guidelines
      */
-    public function sendButton($recipientId, $text, $buttons, $notificationType = MessageSend::NOTIFICATION_TYPE_REGULAR)
+    public function sendButton($recipient, $text, $buttons, $notificationType = MessageSend::NOTIFICATION_TYPE_REGULAR)
     {
-        $structuredMessage = new StructuredMessage($recipientId, 
+        $structuredMessage = new StructuredMessage($recipient, 
                                                    ['text' => $text, 'buttons' => $buttons], 
                                                    $notificationType, 
                                                    StructuredMessage::ATTACHMENT_TYPE_TEMPLATE,
@@ -110,15 +122,19 @@ class MessengerPlatform
     /**
      * Send a structured Message - receipt template.
      * 
-     * @param int $recipientId This must be an id that was retrieved through the Messenger entry points or through the Messenger callbacks.
+     * @param int $recipient This must be either:
+     * <ul>
+     * <li>an id that was retrieved through the Messenger entry points or through the Messenger callbacks</li>
+     * <li>or instance of fritak\MessengerPlatform\UserRecipient</li>
+     * </ul>
      * @param Receipt $receipt
      * @param string $notificationType One of 3 types of notification, use constants (eg. NOTIFICATION_TYPE_REGULAR)
      * @return fritak\MessengerPlatform\Response
      * @see https://developers.facebook.com/docs/messenger-platform/send-api-reference#guidelines
      */
-    public function sendReceipt($recipientId, Receipt $receipt, $notificationType = MessageSend::NOTIFICATION_TYPE_REGULAR)
+    public function sendReceipt($recipient, Receipt $receipt, $notificationType = MessageSend::NOTIFICATION_TYPE_REGULAR)
     {
-        $structuredMessage = new StructuredMessage($recipientId, 
+        $structuredMessage = new StructuredMessage($recipient, 
                                                    $receipt, 
                                                    $notificationType, 
                                                    StructuredMessage::ATTACHMENT_TYPE_TEMPLATE,

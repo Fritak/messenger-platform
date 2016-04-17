@@ -20,13 +20,13 @@ class StructuredMessage extends MessageSend
     protected $typePayolad    = NULL;
     
 
-    public function __construct($recipientId, 
+    public function __construct($recipient, 
                                 $data, 
                                 $notificationType = self::NOTIFICATION_TYPE_REGULAR, 
                                 $typeAttachment = self::ATTACHMENT_TYPE_TEMPLATE, 
                                 $typePayolad = self::TEMPLATE_PAYLOAD_TYPE_GENERIC)
     {
-        $this->recipientId     = $recipientId;
+        $this->recipient        = $this->getRecipient($recipient);
         $this->data             = $data;
         $this->notificationType = $notificationType;
         $this->typeAttachment   = $typeAttachment;
@@ -62,19 +62,11 @@ class StructuredMessage extends MessageSend
                 $payload['buttons'] = $buttons;
                 break;
 
-            case self::TEMPLATE_PAYLOAD_TYPE_GENERIC && $this->typeAttachment != self::ATTACHMENT_TYPE_IMAGE:
-                $elements = [];
-
-                foreach ($this->data as $element)
+            default:
+                if($this->typeAttachment != self::ATTACHMENT_TYPE_IMAGE)
                 {
-                    $elements[] = $element->getDataForCall();
+                    $payload = array_replace($payload, $this->data->getDataForCall());
                 }
-                
-                $payload['elements'] = $elements;
-                break;
-
-            case self::TEMPLATE_PAYLOAD_TYPE_RECEIPT:
-                $payload = array_replace($payload, $this->data->getDataForCall());
             break;
         }
         

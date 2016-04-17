@@ -14,14 +14,14 @@ class MessageSend extends BaseObject
     const NOTIFICATION_TYPE_NO_PUSH     = 'NO_PUSH';
     const NOTIFICATION_TYPE_SILENT_PUSH = 'SILENT_PUSH';
     
-    public $recipientId;
+    public $recipient;
     public $textMessage;
     public $messageTemplate;
     public $notificationType;
     
-    public function __construct($recipientId, $textMessage, $notificationType = self::NOTIFICATION_TYPE_REGULAR)
+    public function __construct($recipient, $textMessage, $notificationType = self::NOTIFICATION_TYPE_REGULAR)
     {
-        $this->recipientId      = $recipientId;
+        $this->recipient        = $this->getRecipient($recipient);
         $this->textMessage      = $textMessage;
         $this->notificationType = $notificationType;
     }
@@ -35,8 +35,13 @@ class MessageSend extends BaseObject
 
         return [
             'message'           => $this->messageTemplate,
-            'recipient'         => ['id' => $this->recipientId],
+            'recipient'         => $this->recipient->getDataForCall(),
             'notification_type' => $this->notificationType
         ];
+    }
+    
+    public function getRecipient($recipient)
+    {
+        return is_numeric($recipient)? new UserRecipient($recipient) : $recipient;
     }
 }
