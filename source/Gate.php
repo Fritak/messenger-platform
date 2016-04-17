@@ -45,7 +45,7 @@ class Gate
         {
             $callUrl .= '?' . $this->prepareData($data);
         }
-        
+
         $curl = curl_init($callUrl);
         
         curl_setopt($curl, CURLOPT_TIMEOUT, 30);
@@ -58,8 +58,14 @@ class Gate
             curl_setopt($curl, CURLOPT_POST, 1);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $this->prepareData($data));
         }
-        
+
         $response = new Response(curl_exec($curl));
+        
+        $curlError = curl_error($curl);
+        if(!empty($curlError))
+        {
+            throw new MessengerPlatformException('Gate exception (curl error) #3: ' . $curlError);
+        }
         
         $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
