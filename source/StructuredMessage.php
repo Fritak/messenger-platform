@@ -62,7 +62,7 @@ class StructuredMessage extends MessageSend
                 $payload['buttons'] = $buttons;
                 break;
 
-            case self::TEMPLATE_PAYLOAD_TYPE_GENERIC:
+            case self::TEMPLATE_PAYLOAD_TYPE_GENERIC && $this->typeAttachment != self::ATTACHMENT_TYPE_IMAGE:
                 $elements = [];
 
                 foreach ($this->data as $element)
