@@ -16,7 +16,7 @@ require_once(dirname(__FILE__) . '/vendor/autoload.php');
 $userToSendMessage = 123; // This must be an id that was retrieved through the Messenger entry points or through the Messenger callbacks.
 
 // Or you can set an object UserRecipient - you can try Customer Matching, if you have pages_messaging_phone_number permission
-$userToSendMessage = new UserRecipient(NULL, 00420123456789);
+$userToSendMessage = new UserRecipient(NULL, "00420123456789");
 
 // This is just an example, this method of getting request is not safe!
 $stream  = file_get_contents("php://input");
