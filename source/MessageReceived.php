@@ -57,13 +57,16 @@ class Messaging
     {
         $this->recipient = new Recipient(['id' => $data->recipient->id]);
         $this->sender    = new Sender(['id' => $data->sender->id]);
-        $this->timestamp = $data->timestamp;
+        $this->timestamp = isset($data->timestamp)? $data->timestamp : null;
 
-        $this->message = new Message([
-            'mid'  => $data->message->mid,
-            'seq'  => $data->message->seq,
-            'text' => $data->message->text,
-        ]);
+        if(isset($data->message))
+        {
+            $this->message = new Message([
+                'mid'  => $data->message->mid,
+                'seq'  => $data->message->seq,
+                'text' => $data->message->text,
+            ]);
+        }
     }
 }
 
