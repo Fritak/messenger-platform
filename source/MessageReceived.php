@@ -53,6 +53,12 @@ class Messaging
     /** @var fritak\MessengerPlatform\Message Message. */
     public $message;
     
+    /** @var fritak\MessengerPlatform\Delivery Message. */
+    public $delivery;
+        
+    /** @var fritak\MessengerPlatform\Delivery Message. */
+    public $delivery;
+    
     public function __construct($data)
     {
         $this->recipient = new Recipient(['id' => $data->recipient->id]);
@@ -67,6 +73,55 @@ class Messaging
                 'text' => $data->message->text,
             ]);
         }
+        
+        if(isset($data->delivery))
+        {
+            $this->delivery = new Delivery($data->delivery);
+        }
+        
+        if(isset($data->postback))
+        {
+            $this->postback = new Delivery($data->postback);
+        }
+    }
+}
+
+/**
+ * This indicates there are updates that are of delivery type
+ * @package fritak\MessengerPlatform
+ * @see https://developers.facebook.com/docs/messenger-platform/webhook-reference#message_delivery
+ */
+class Delivery 
+{
+    /** @var object Array containing message IDs of messages that were delivered. Field may not be present. */
+    public $mids = null;
+    
+    /** @var int All messages that were sent before this timestamp were delivered. */
+    public $watermark = null;
+    
+    /** @var int Sequence number */
+    public $seq = null;
+    
+    public function __construct($delivery)
+    {
+        $this->mids      = $delivery->mids;
+        $this->watermark = $delivery->watermark;
+        $this->seq       = $delivery->seq;
+    }
+}
+
+/**
+ * @package fritak\MessengerPlatform
+ * @see https://developers.facebook.com/docs/messenger-platform/webhook-reference#postback
+ */
+class Postback 
+{
+    /** @var mixed payload parameter that was defined with the button */
+    public $payload = null;
+    
+    public function __construct($postback)
+    {
+        $this->payload = $postback->payload;
     }
 }
 
