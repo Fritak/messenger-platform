@@ -56,8 +56,8 @@ class Messaging
     /** @var fritak\MessengerPlatform\Delivery Message. */
     public $delivery;
         
-    /** @var fritak\MessengerPlatform\Delivery Message. */
-    public $delivery;
+    /** @var fritak\MessengerPlatform\Optin Message. */
+    public $optin;
     
     public function __construct($data)
     {
@@ -195,8 +195,15 @@ class Message
     
     public function __construct($message)
     {
-        $this->mid      = $message->mid;
-        $this->seq = $message->seq;
+        if(isset($message->mid))
+        {
+            $this->mid = $message->mid;
+        }
+        
+        if(isset($message->seq))
+        {
+            $this->mid = $message->seq;
+        }
         
         if(isset($message->text))
         {
