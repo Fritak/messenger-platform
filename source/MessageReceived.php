@@ -66,12 +66,8 @@ class Messaging
         $this->timestamp = isset($data->timestamp)? $data->timestamp : null;
 
         if(isset($data->message))
-        {
-            $this->message = new Message([
-                'mid'  => $data->message->mid,
-                'seq'  => $data->message->seq,
-                'text' => isset($data->message->text)? $data->message->text : NULL,
-            ]);
+        { 
+            $this->message = new Message($data->message);
         }
         
         if(isset($data->delivery))
