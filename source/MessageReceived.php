@@ -81,7 +81,12 @@ class Messaging
         
         if(isset($data->postback))
         {
-            $this->postback = new Delivery($data->postback);
+            $this->postback = new Postback($data->postback);
+        }
+        
+        if(isset($data->optin))
+        {
+            $this->optin = new Optin($data->optin);
         }
     }
 }
@@ -126,6 +131,39 @@ class Postback
 }
 
 /**
+ * Authentication Callback
+ * @see https://developers.facebook.com/docs/messenger-platform/webhook-reference#auth
+ */
+class Optin
+{
+    /** @var mixed data-ref parameter that was defined with the entry point */
+    public $ref = null;
+    
+    public function __construct($optin)
+    {
+        $this->ref = $optin->ref;
+    }
+}
+
+/**
+ * 
+ */
+class Attachment
+{
+    /** @var string Type of attachment - Enum(image, video, audio). */
+    public $type = null;
+    
+    /** @var string URL of attachment */
+    public $url = null;
+    
+    public function __construct($attachment)
+    {
+        $this->type = $attachment->type;
+        $this->url  = $attachment->url;
+    }
+}
+
+/**
  * @property-read int $id Recipient user id.
  * @package fritak\MessengerPlatform
  */
@@ -138,9 +176,42 @@ class Recipient extends BaseObject {}
 class Sender extends BaseObject {}
 
 /**
- * @property-read int $mid Message ID.
- * @property-read int $seq Message sequence number. 
- * @property-read string $text Text of message. 
+ * You may receive text messsages or messages with attachments (image, video, audio).
  * @package fritak\MessengerPlatform
  */
-class Message extends BaseObject {}
+class Message 
+{
+    /** @var object Message ID. */
+    public $mid = null;
+    
+    /** @var int Message sequence number.  */
+    public $seq = null;
+    
+    /** @var string Text of message.  */
+    public $text = null;
+    
+    /** @var string Array containing attachment data  */
+    public $attachments = null;
+    
+    public function __construct($message)
+    {
+        $this->mid      = $message->mid;
+        $this->seq = $message->seq;
+        
+        if(isset($message->text))
+        {
+            $this->text = $message->text;
+        }
+        
+        if(isset($message->attachments))
+        {
+            $this->attachments = [];
+            
+            foreach($this->attachments AS $attachment)
+            {
+                $this->attachments[] = new Attachment($attachment);
+            }
+            
+        }
+    }
+}
