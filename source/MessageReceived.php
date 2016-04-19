@@ -70,7 +70,7 @@ class Messaging
             $this->message = new Message([
                 'mid'  => $data->message->mid,
                 'seq'  => $data->message->seq,
-                'text' => $data->message->text,
+                'text' => isset($data->message->text)? $data->message->text : NULL,
             ]);
         }
         
