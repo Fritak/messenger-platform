@@ -155,6 +155,17 @@ class MessengerPlatform
     }
     
     /**
+     * Send a complex message.
+     * 
+     * @param fritak\MessengerPlatform\MessageSend|fritak\MessengerPlatform\StructuredMessage $message
+     * @return fritak\MessengerPlatform\Response
+     */
+    public function sendComplexMessage($message)
+    {
+        return $this->sendComplexMeesage($message);
+    }
+    
+    /**
      * Get messages received. Returns FALSE if request don`t have messages.
      * 
      * @return boolean|array Array of \fritak\MessengerPlatform\MessageReceived.

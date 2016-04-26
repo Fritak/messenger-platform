@@ -65,7 +65,20 @@ class StructuredMessage extends MessageSend
             default:
                 if($this->typeAttachment != self::ATTACHMENT_TYPE_IMAGE)
                 {
-                    $payload = array_replace($payload, $this->data->getDataForCall());
+                    $payloadData = null;
+                    if(is_array($this->data))
+                    {
+                        foreach($this->data AS $data)
+                        {
+                            $payloadData[] = $data->getDataForCall();
+                        }
+                        
+                        $payload = array_replace($payload, ['elements' => $payloadData]);
+                    }
+                    else
+                    {
+                        $payload = array_replace($payload, $this->data->getDataForCall());
+                    }
                 }
             break;
         }
