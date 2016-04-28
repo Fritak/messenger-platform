@@ -46,7 +46,7 @@ class Element
             $request['item_url'] = $this->itemUrl;
         }
         
-        if (!empty($this->image_url)) 
+        if (!empty($this->imageUrl)) 
         {
             $request['image_url'] = $this->imageUrl;
         }
