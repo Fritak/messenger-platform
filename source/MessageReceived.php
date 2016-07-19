@@ -146,6 +146,8 @@ class Optin
  */
 class Attachment
 {
+    const TYPE_LOCATION = 'location';
+
     /** @var string Type of attachment - Enum(image, video, audio). */
     public $type = null;
     
