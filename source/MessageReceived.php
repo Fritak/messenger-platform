@@ -151,13 +151,25 @@ class Attachment
     
     /** @var string URL of attachment */
     public $url = null;
-    
+
+    public $payload;
+
     public function __construct($attachment)
     {
         $this->type = $attachment->type;
         $this->url  = $attachment->url;
+
+        if ($attachment->payload) {
+            if (isset($attachment->payload->coordinates)) {
+                $this->payload = new Payload($attachment->payload->coordinates);
+            } else {
+                $this->payload = new Payload($attachment->payload);
+            }
+        }
     }
 }
+
+class Payload extends BaseObject {}
 
 /**
  * @property-read int $id Recipient user id.
