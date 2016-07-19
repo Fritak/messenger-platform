@@ -210,7 +210,7 @@ class Message
         {
             $this->attachments = [];
             
-            foreach($this->attachments AS $attachment)
+            foreach($message->attachments AS $attachment)
             {
                 $this->attachments[] = new Attachment($attachment);
             }
