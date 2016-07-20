@@ -159,7 +159,6 @@ class Attachment
     public function __construct($attachment)
     {
         $this->type = $attachment->type;
-        $this->url  = $attachment->url;
 
         if ($attachment->payload) {
             if (isset($attachment->payload->coordinates)) {
