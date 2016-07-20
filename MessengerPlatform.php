@@ -73,6 +73,12 @@ class MessengerPlatform
         
         return $this->gate->request(Gate::URL_MESSAGES, $message->getDataForCall());
     }
+
+    public function sendQuickReplies($recipient, $text, $data, $notificationType = MessageSend::NOTIFICATION_TYPE_REGULAR)
+    {
+        $message = new MessageSendWithReplies($recipient, $text, $data, $notificationType);
+        return $this->gate->request(Gate::URL_MESSAGES, $message->getDataForCall());
+    }
     
     /**
      * Send an image (file).

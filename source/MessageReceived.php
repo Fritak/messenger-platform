@@ -202,7 +202,9 @@ class Message
     
     /** @var string Array containing attachment data  */
     public $attachments = null;
-    
+
+    public $quick_reply;
+
     public function __construct($message)
     {
         if(isset($message->mid))
@@ -228,7 +230,10 @@ class Message
             {
                 $this->attachments[] = new Attachment($attachment);
             }
-            
+        }
+
+        if (isset($message->quick_reply)) {
+            $this->quick_reply = new Payload($message->quick_reply);
         }
     }
 }
