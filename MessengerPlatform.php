@@ -4,6 +4,7 @@ namespace fritak;
 
 use fritak\MessengerPlatform\Gate;
 use fritak\MessengerPlatform\Config;
+use fritak\MessengerPlatform\MessageSendWithReplies;
 use fritak\MessengerPlatform\Receipt;
 use fritak\MessengerPlatform\MessageSend;
 use fritak\MessengerPlatform\StructuredMessage;
